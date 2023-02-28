@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import './Staj.sass'
+import moment from 'moment/moment';
 
 const Staj = () => {
     const [divs, setDivs] = useState([
-        { startDate: '', endDate: '', days: null },
-        { startDate: '', endDate: '', days: null },
-        { startDate: '', endDate: '', days: null },
-        { startDate: '', endDate: '', days: null },
-        { startDate: '', endDate: '', days: null },
+        { startDate: '', endDate: '', days: 0 },
+        { startDate: '', endDate: '', days: 0 },
+        { startDate: '', endDate: '', days: 0 },
+        { startDate: '', endDate: '', days: 0 },
+        { startDate: '', endDate: '', days: 0 },
       ]);
     
       function handleInputChange(event, divIndex, isStartDate) {
@@ -23,7 +25,7 @@ const Staj = () => {
       function handleAddDiv() {
         setDivs([
           ...divs,
-          { startDate: '', endDate: '', days: null },
+          { startDate: '', endDate: '', days: 0 },
         ]);
       }
     
@@ -36,7 +38,7 @@ const Staj = () => {
             const days = Math.round((end - start) / (1000 * 60 * 60 * 24));
             return { ...div, days };
           } else {
-            return { ...div, days: null };
+            return { ...div, days: 0 };
           }
         });
     
@@ -51,47 +53,56 @@ const Staj = () => {
         }
       }, 0);
     
-      const totalYears = Math.floor(totalDays / 365);
-      const totalMonths = Math.floor((totalDays - (totalYears * 365)) / 30);
-      const totalRemainingDays = totalDays - (totalYears * 365) - (totalMonths * 30);
+      const totalSums = (totalDays) => {
+        const duration = moment.duration(totalDays, 'days');
+        const years = duration.years();
+        const months = duration.months();
+        const days = duration.days();
+
+        return {years, months, days};
+      }
+
+      const divTotals = (totalDays) => {
+        const duration = moment.duration(totalDays, 'days');
+        const years = duration.years();
+        const months = duration.months();
+        const days = duration.days();
+
+        return {years, months, days};
+      }
     
       return (
-        <div>
-          {divs.map((div, index) => (
-            <div key={index}>
-              <input
-                type="date"
-                value={div.startDate}
-                onChange={(event) => handleInputChange(event, index, true)}
-              />
-              {' - '}
-              <input
-                type="date"
-                value={div.endDate}
-                onChange={(event) => handleInputChange(event, index, false)}
-              />
-              {div.days !== null && (
-                <>
-                  <br />
-                  <span>{div.days} days</span>
-                  {' '}
-                  <span>({Math.floor(div.days / 365)} years, {Math.floor((div.days % 365) / 30)} months, {div.days % 30} days)</span>
-                </>
-              )}
+        <section className='staj'>
+          <div className="staj-cont">
+            {divs.map((div, index) => (
+              <div className='inputs' key={index}>
+                <span>{index+1}. iş yeri: </span>
+                <input
+                  type="date"
+                  value={div.startDate}
+                  onChange={(event) => handleInputChange(event, index, true)}
+                />
+                
+                <input
+                  type="date"
+                  value={div.endDate}
+                  onChange={(event) => handleInputChange(event, index, false)}
+                />
+                  <>
+                    <span className='total-days'>{div.days} gün ({divTotals(div.days).years} il, {divTotals(div.days).months} ay, {divTotals(div.days).days} gün)</span>
+                  </>
             </div>
           ))}
-          <br />
-          <button onClick={handleAddDiv}>Add Div</button>
-          <button onClick={handleCalculate}>Calculate</button>
-          <br />
-          <br />
-          <div>
-            <span>Total: </span>
-            <span>{totalDays} days</span>
-            {' '}
-            <span>({totalYears} years, {totalMonths} months, {totalRemainingDays} days)</span>
+          <div className="btns">
+            <button onClick={handleAddDiv}>İş yeri əlavə et</button>
+            <button onClick={handleCalculate}>Hesabla</button>
           </div>
-        </div>
+          <div className='total-staj'>
+            <h2>Cəmi staj: <span>{totalDays} gün</span> <span>({totalSums(totalDays).years} il, {totalSums(totalDays).months} ay, {totalSums(totalDays).days} gün)</span></h2>
+          </div>
+          </div>
+          
+        </section>
       );
 }
 
