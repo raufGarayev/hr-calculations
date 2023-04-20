@@ -1,0 +1,96 @@
+.sonhesab
+    height: 100%
+    width: 100%
+    display: flex
+    justify-content: center
+    flex-direction: column
+    align-items: center
+    background-image: url('../../../images/bg.jpg')
+    background-repeat: no-repeat
+    background-size: cover
+    -moz-background-size: cover
+    -webkit-background-size: cover
+    -o-background-size: cover
+    -ms-background-size: cover
+    background-position: center center
+    &-cont
+        padding: 20px
+        background: rgba(11, 13, 24, 0.6)
+        height: 100%
+        width: 100%
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        gap: 5%
+        &-mezuniyyet
+            width: 200px
+            display: grid
+            place-items: center
+            input
+                width: 100%
+                padding: 8px 20px
+        &-grid
+            display: grid
+            grid-template-columns: repeat(4, 1fr)
+            grid-template-rows: repeat(3, 1fr)
+            gap: 30px
+            place-items: center
+            width: 75%
+            height: 50%
+            &-input
+                width: 200px
+                display: flex
+                flex-direction: column
+                align-items: center
+                position: relative
+                button
+                    position: absolute
+                    top: 15px
+                    right: 0
+                    width: 25%
+                    height: 36px
+                    margin-top: 5px
+                    display: inline-block
+                    text-decoration: none
+                    text-align: center
+                    color: #fff
+                    background: orange
+                    font-size: 14px
+                    font-weight: 500
+                    border: none
+                    cursor: pointer
+                input
+                    width: 100%
+                    padding: 8px 20px
+        &-btns
+            display: flex
+            gap: 10px
+            button
+                width: 140px
+                height: 40px
+                background: orange
+                color: #fff
+                border: none
+                font-weight: 600
+                border-radius: 5px
+                font-size: .875rem
+                cursor: pointer
+        &-netice
+            width: 50%
+            height: 150px
+            border-radius: 10px
+            background: rgba(11, 13, 24, 0.9)
+            p
+                color: #fff
+                border-bottom: 1px #fff solid
+                padding: 10px
+
+
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button
+    -webkit-appearance: none
+    margin: 0
+
+input[type="number"] 
+    -moz-appearance: textfield

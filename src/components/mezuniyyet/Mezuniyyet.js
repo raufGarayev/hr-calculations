@@ -1,11 +1,9 @@
 import React, {useState} from 'react'
 import './Mezuniyyet.sass'
 import moment from 'moment/moment';
-/* import DatePicker from "react-datepicker"; */
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-date-picker/dist/entry.nostyle';
+import '../../datepicker.css'
+import { Link } from 'react-router-dom';
 
 
 const Mezuniyyet = () => {
@@ -39,44 +37,30 @@ const Mezuniyyet = () => {
 
   return (
     <div className='mezuniyyet'>
+        <Link className='home-button' to='/'>Ana səhifə</Link>
         <form id="booking-form" className="booking-form">
             <div className="form-group">
                 <div className="mezuniyyet-giris">
                     <label htmlFor='giris'>İşə başlama tarixi</label>
-                    {/* <DatePicker 
-                        type="date"  
-                        onSelect={(date) => setGiris(date)} 
-                        value={giris}
-                        selected={giris}  
-                        id='giris' 
-                        name='giris'
-                        dateFormat="dd/MM/yyyy"
-                        
-                    /> */}
-                    <DatePicker
-                        disableFuture
-                        label="Responsive"
-                        openTo="year"
-                        views={['year', 'month', 'day']}
-                        value={giris}
-                        onChange={(newValue) => {
-                            setGiris(newValue);
-                        }}
-
-                    />
+                    <div className="input-wrapper">
+                        <DatePicker 
+                            onChange={(value) => setGiris(value)} 
+                            value={giris} 
+                            format="dd-MM-yyyy"
+                        />
+                    </div>
 
                 </div>
                 <div className="mezuniyyet-cixis">
                     <label htmlFor="cixis">İşdən çıxma tarixi</label>
-                    <DatePicker  
-                        type="date" 
-                        id='cixis' 
-                        name='cixis' 
-                        value={cixis}
-                        selected={cixis}
-                        dateFormat="dd/MM/yyyy"
-                        onSelect={(date) => setCixis(date)}   
-                    />
+                    <div className="input-wrapper">
+                        <DatePicker 
+                            onChange={(value) => setCixis(value)} 
+                            value={cixis} 
+                            format="dd-MM-yyyy"
+                        />
+                    </div>
+                    
                 </div>
                 <div className="mezuniyyet-il">
                     <label htmlFor="il">İl dövründə olan günün miqdarı</label>

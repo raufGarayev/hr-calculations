@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './Staj.sass'
 import moment from 'moment/moment';
+import DatePicker from 'react-date-picker/dist/entry.nostyle';
+import '../../datepicker.css'
+import { Link } from 'react-router-dom';
 
 const Staj = () => {
     const [divs, setDivs] = useState([
@@ -12,7 +15,7 @@ const Staj = () => {
       ]);
     
       function handleInputChange(event, divIndex, isStartDate) {
-        const input = event.target.value;
+        const input = new Date(event);
         const isValidDate = !isNaN(new Date(input).getTime());
         if (isValidDate) {
           const newDivs = [...divs];
@@ -41,7 +44,7 @@ const Staj = () => {
             return { ...div, days: 0 };
           }
         });
-    
+        
         setDivs(newDivs);
       }
     
@@ -73,21 +76,36 @@ const Staj = () => {
     
       return (
         <section className='staj'>
+          <Link className='home-button' to='/'>Ana səhifə</Link>
           <div className="staj-cont">
             {divs.map((div, index) => (
               <div className='inputs' key={index}>
-                <span>{index+1}. iş yeri: </span>
-                <input
+                <span className='input-title'>{index+1}. iş yeri: </span>
+                {/* <input
                   type="date"
                   value={div.startDate}
                   onChange={(event) => handleInputChange(event, index, true)}
-                />
+                /> */}
+                <div className="inputs-wrapper">
+                  <DatePicker 
+                    onChange={(value) => handleInputChange(value, index, true)} 
+                    value={div.startDate} 
+                    format="dd-MM-yyyy"
+                  />
+                </div>
                 
-                <input
+                {/* <input
                   type="date"
                   value={div.endDate}
                   onChange={(event) => handleInputChange(event, index, false)}
-                />
+                /> */}
+                <div className="inputs-wrapper">
+                  <DatePicker 
+                    onChange={(value) => handleInputChange(value, index, false)} 
+                    value={div.endDate} 
+                    format="dd-MM-yyyy"
+                  />
+                </div>
                   <>
                     <span className='total-days'>{div.days} gün ({divTotals(div.days).years} il, {divTotals(div.days).months} ay, {divTotals(div.days).days} gün)</span>
                   </>
